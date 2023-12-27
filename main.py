@@ -20,7 +20,12 @@ goat = pygame.image.load('data/goat.png')
 goat = pygame.transform.scale(goat, (player_width, player_height))
 goat1 = pygame.image.load('data/goat.png')
 goat1 = pygame.transform.scale(goat1, (player_width + 2, player_height + 2))
-goat_rect = goat.get_rect()
+
+mill = pygame.image.load('data/mill.png')
+mill = pygame.transform.scale(mill, (200, 300))
+
+barn = pygame.image.load('data/barn.png')
+barn = pygame.transform.scale(barn, (300, 300))
 
 play_btn = pygame.image.load('data/play_btn.png')
 play_btn = pygame.image.load('data/play_btn.png')
@@ -48,6 +53,14 @@ def intro_maker():
 
 intro_maker()
 
+def draw_mill():
+    if win_blit:
+        win.blit(mill, (0, 300))
+
+
+def draw_barn():
+    if win_blit:
+        win.blit(barn, (500, 0))
 
 # Функция отрисовки персонажа
 def draw_player(x, y):
@@ -74,6 +87,10 @@ def draw_player(x, y):
             else:
                 win.blit(walk_right[0], (x, y))
 
+def check_collision(obj1, obj2):
+    if obj1.colliderect(obj2):
+        return True
+    return False
 
 running = True
 clock = pygame.time.Clock()
@@ -125,9 +142,22 @@ while running:
         player_y = 0
     if player_y > HEIGHT - player_height:
         player_y = HEIGHT - player_height
+    
+    # проверка на пересечение с др предметами(я тут гетрект поставила тк по другому не получалось чета)
+    mill_rect = mill.get_rect(topleft=(0, 300))
+    barn_rect = barn.get_rect(topleft=(500, 0))
+    goat_rect = goat.get_rect(topleft=(player_x, player_y))
+
+    if check_collision(goat_rect, mill_rect):
+        if player_y > 300:
+            player_x += player_speed
+        elif 250 < player_y < 300:
+            player_y -= player_speed
 
     # Отрисовка игровых объектов
     draw_player(player_x, player_y)
+    draw_mill()
+    draw_barn()
     # Обновление экрана
     pygame.display.update()
     # Ограничение скорости игры
