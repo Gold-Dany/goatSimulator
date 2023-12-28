@@ -50,6 +50,9 @@ mill = pygame.transform.scale(mill, (200, 300))
 barn = pygame.image.load('data/barn.png')
 barn = pygame.transform.scale(barn, (300, 300))
 
+mill_rect = mill.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
+barn_rect = barn.get_rect(topleft=(WIDTH // 10, HEIGHT // 10))
+
 walk_right = [goat, goat1, goat2, goat2]
 walk_left = [pygame.transform.flip(img, True, False) for img in walk_right]
 win_blit = 'start_bg'
@@ -63,6 +66,14 @@ allow_walk = True
 
 move_boss_event = None
 move_boss_event_check = 'small'
+
+
+def draw_mill():
+    win.blit(mill, (mill_rect.x, mill_rect.y))
+
+
+def draw_barn():
+    win.blit(barn, (barn_rect.x, barn_rect.y))
 
 
 def intro_maker():
@@ -81,16 +92,6 @@ def intro_maker():
 
 
 intro_maker()
-
-
-def draw_mill():
-    if win_blit:
-        win.blit(mill, (300, 300))
-
-
-def draw_barn():
-    if win_blit:
-        win.blit(barn, (500, 0))
 
 
 def boss_fight1():
@@ -140,12 +141,6 @@ def draw_player(x, y):
                 win.blit(walk_right[0], (x, y))
             else:
                 win.blit(walk_right[0], (x, y))
-
-
-def check_collision(obj1, obj2):
-    if obj1.colliderect(obj2):
-        return True
-    return False
 
 
 running = True
@@ -247,16 +242,18 @@ while running:
     # Проверка на выход за границы карты
     goat_rect.clamp_ip(win.get_rect())
 
-    # Проверка на пересечение с др предметами
-    mill_rect = mill.get_rect(topleft=(300, 300))
-    barn_rect = barn.get_rect(topleft=(500, 0))
-    goat_rect = goat.get_rect(topleft=(goat_rect.x, goat_rect.y))
-
-    if check_collision(goat_rect, mill_rect):
-        if player_y > 300:
-            player_x += player_speed
-        elif 250 < player_y < 300:
-            player_y -= player_speed
+    if win_blit == 'main1_bg':
+        # Проверка на столкновение с препятствием
+        if goat_rect.colliderect(mill_rect) or goat_rect.colliderect(barn_rect):
+            # Если столкновение произошло, возвращаем персонажа на предыдущую позицию
+            if keys[pygame.K_a]:
+                goat_rect.move_ip(player_speed, 0)
+            if keys[pygame.K_d]:
+                goat_rect.move_ip(-player_speed, 0)
+            if keys[pygame.K_w]:
+                goat_rect.move_ip(0, player_speed)
+            if keys[pygame.K_s]:
+                goat_rect.move_ip(0, -player_speed)
 
     # Движение босса за персонажем
     if win_blit == 'boss_fight1':
