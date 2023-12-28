@@ -19,7 +19,7 @@ goat1 = pygame.transform.scale(goat1, (player_width, player_height))
 goat2 = pygame.image.load('data/goat2.png')
 goat2 = pygame.transform.scale(goat2, (player_width, player_height))
 goat_rect = goat.get_rect()
-goat_rect.center = (WIDTH // 2, HEIGHT // 2)
+goat_rect.center = (WIDTH // 2, HEIGHT / 1.5)
 # Атака
 goat_attack = pygame.image.load('data/cursor.png')
 goat_attack = pygame.transform.scale(goat_attack, (player_width, player_height))
@@ -68,12 +68,48 @@ move_boss_event = None
 move_boss_event_check = 'small'
 
 
-def draw_mill():
-    win.blit(mill, (mill_rect.x, mill_rect.y))
+class Draw:
 
+    def __init__(self, draw_x=0, draw_y=0):
+        self.x, self.y = draw_x, draw_y
 
-def draw_barn():
-    win.blit(barn, (barn_rect.x, barn_rect.y))
+    def draw_mill(self):
+        win.blit(mill, (self.x, self.y))
+
+    def draw_barn(self):
+        win.blit(barn, (self.x, self.y))
+
+    # Отрисовка персонажа
+    def draw_player(self):
+        global walk_count, allow_animation, win_blit
+
+        # Хп игрока
+        font = pygame.font.Font(None, 50)
+        text = font.render(f"Your XP: {player_health}", True, (255, 255, 0))
+        text_rect = text.get_rect(center=(WIDTH // 8, HEIGHT // 16))
+        win.blit(text, text_rect)
+
+        if win_blit != 'start_bg':
+
+            if walk_count + 1 >= 12:
+                walk_count = 0
+            if allow_animation:
+                if left:
+                    win.blit(walk_left[walk_count // 3], (self.x, self.y))
+                    walk_count += 1
+                elif right:
+                    win.blit(walk_right[walk_count // 3], (self.x, self.y))
+                    walk_count += 1
+                else:
+                    win.blit(walk_right[walk_count // 3], (self.x, self.y))
+                    walk_count += 1
+            else:
+                if left:
+                    win.blit(walk_left[0], (self.x, self.y))
+                elif right:
+                    win.blit(walk_right[0], (self.x, self.y))
+                else:
+                    win.blit(walk_right[0], (self.x, self.y))
 
 
 def intro_maker():
@@ -108,39 +144,6 @@ def boss_fight1():
     background = pygame.image.load('data/bg_boss_fight1.jpg')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     win.blit(background, (0, 0))
-
-
-# Функция отрисовки персонажа
-def draw_player(x, y):
-    global walk_count, allow_animation, win_blit
-
-    # Хп игрока
-    font = pygame.font.Font(None, 50)
-    text = font.render(f"Your XP: {player_health}", True, (255, 255, 0))
-    text_rect = text.get_rect(center=(WIDTH // 8, HEIGHT // 16))
-    win.blit(text, text_rect)
-
-    if win_blit != 'start_bg':
-
-        if walk_count + 1 >= 12:
-            walk_count = 0
-        if allow_animation:
-            if left:
-                win.blit(walk_left[walk_count // 3], (x, y))
-                walk_count += 1
-            elif right:
-                win.blit(walk_right[walk_count // 3], (x, y))
-                walk_count += 1
-            else:
-                win.blit(walk_right[walk_count // 3], (x, y))
-                walk_count += 1
-        else:
-            if left:
-                win.blit(walk_left[0], (x, y))
-            elif right:
-                win.blit(walk_right[0], (x, y))
-            else:
-                win.blit(walk_right[0], (x, y))
 
 
 running = True
@@ -300,12 +303,15 @@ while running:
 
     # Отрисовка игровых объектов
     if win_blit != 'start_bg':
-        draw_player(goat_rect[0], goat_rect[1])
+        draw = Draw(goat_rect[0], goat_rect[1])
+        draw.draw_player()
     if win_blit == 'boss_fight1':
         win.blit(boss1, boss1_rect)
     if win_blit != 'start_bg' and win_blit != 'boss_fight1':
-        draw_mill()
-        draw_barn()
+        draw = Draw(mill_rect.x, mill_rect.y)
+        draw.draw_mill()
+        draw = Draw(barn_rect.x, barn_rect.y)
+        draw.draw_barn()
     # Обновление экрана
     pygame.display.update()
     # Ограничение скорости игры
