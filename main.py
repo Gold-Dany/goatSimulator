@@ -2,7 +2,7 @@ import pygame
 import random
 
 pygame.init()
-WIDTH, HEIGHT = 1300, 900
+WIDTH, HEIGHT = 1000, 700
 
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Goat Simulator")
@@ -16,6 +16,8 @@ player_max_health = 0
 player_speed = 0
 player_super_speed = 0
 player_strength = 0
+tree_res = 0
+hay_res = 0
 
 # Шаблон козла
 goat = pygame.image.load('data/goat.png')
@@ -96,12 +98,20 @@ boss2_health = 150
 # Объекты
 mill = pygame.image.load('data/mill.png')
 mill = pygame.transform.scale(mill, (200, 300))
+mill_rect = mill.get_rect(topleft=(WIDTH // 10, HEIGHT // 10))
 
 barn = pygame.image.load('data/barn.png')
 barn = pygame.transform.scale(barn, (300, 300))
-
-mill_rect = mill.get_rect(topleft=(WIDTH // 10, HEIGHT // 10))
 barn_rect = barn.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
+
+tree = pygame.image.load('data/tree.png')
+tree = pygame.transform.scale(tree, (100, 100))
+tree_rect = tree.get_rect(topleft=(700, 500))
+
+hay = pygame.image.load('data/hay.png')
+hay = pygame.transform.scale(hay, (100, 100))
+hay_rect = hay.get_rect(topleft=(0, 400))
+
 
 # Ресурсы
 res1 = 0
@@ -173,6 +183,11 @@ class Draw:
     def draw_characteristic_btn(self):
         win.blit(characteristic_btn, (self.x, self.y))
 
+    def draw_tree(self):
+        win.blit(tree, (self.x, self.y))
+
+    def draw_hay(self):
+        win.blit(hay, (self.x, self.y))
     def draw_charact_menu(self):
         txt_BD_loading()
 
@@ -201,6 +216,8 @@ class Draw:
 
         # Хп игрока
         get_text(50, "Здоровье", 8, 16, (255, 255, 0), player_health)
+        get_text(25, "Древесина", 16, 8, (255, 255, 0), tree_res)
+        get_text(25, "Сено", 16, 10, (255, 255, 0), hay_res)
 
         if win_blit != 'start_bg':
 
@@ -328,6 +345,15 @@ def check_collision(obj):
         if keys[pygame.K_s]:
             goat_rect.move_ip(0, -goat_speed)
 
+def push():
+    if keys[pygame.K_a]:
+        goat_rect.move_ip(30, 0)
+    if keys[pygame.K_d]:
+        goat_rect.move_ip(-30, 0)
+    if keys[pygame.K_w]:
+        goat_rect.move_ip(0, 30)
+    if keys[pygame.K_s]:
+        goat_rect.move_ip(0, -30)
 
 running = True
 clock = pygame.time.Clock()
@@ -501,9 +527,23 @@ while running:
     # Проверка на выход за границы карты
     goat_rect.clamp_ip(win.get_rect())
 
+    # проверка на столкновения с др предметами
     if win_blit == 'main1_bg':
         check_collision(mill_rect)
         check_collision(barn_rect)
+        # добыча ресов
+        if goat_rect.colliderect(tree_rect) and goat_speed == player_super_speed:
+            check_collision(tree_rect)
+            push()
+            tree_res += 5
+        elif goat_rect.colliderect(tree_rect) and goat_speed != player_super_speed:
+            check_collision(tree_rect)
+        if goat_rect.colliderect(hay_rect) and goat_speed == player_super_speed:
+            check_collision(hay_rect)
+            push()
+            hay_res += 2
+        elif goat_rect.colliderect(hay_rect) and goat_speed != player_super_speed:
+            check_collision(hay_rect)
 
     # Движение босса №1 за персонажем
     if win_blit == 'boss_fight1':
@@ -596,6 +636,10 @@ while running:
         draw.draw_barn()
         draw = Draw(characteristic_btn_rect.x, characteristic_btn_rect.y)
         draw.draw_characteristic_btn()
+        draw = Draw(tree_rect.x, tree_rect.y)
+        draw.draw_tree()
+        draw = Draw(hay_rect.x, hay_rect.y)
+        draw.draw_hay()
     if win_blit == 'characteristic_bg':
         draw = Draw(charact_menu_rect.x, charact_menu_rect.y)
         draw.draw_charact_menu()
