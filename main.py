@@ -29,8 +29,8 @@ goat2 = pygame.transform.scale(goat2, (player_width, player_height))
 goat_rect = goat.get_rect()
 goat_rect.center = (WIDTH // 2, HEIGHT / 1.5)
 # Атака
-goat_attack = pygame.image.load('data/cursor.png')
-goat_attack = pygame.transform.scale(goat_attack, (player_width, player_height))
+goat_attack = pygame.image.load('data/horn.png')
+goat_attack = pygame.transform.scale(goat_attack, (50, 50))
 goat_attack_rect = goat_attack.get_rect()
 goat_attack_rect.center = (-100, -100)
 goat_attack_speed = 10
@@ -493,8 +493,8 @@ while running:
 
         if keys[pygame.K_c] and win_blit != 'start_bg':
             if left_attack is False and right_attack is False:
-                goat_attack = pygame.image.load('data/cursor.png')
-                goat_attack = pygame.transform.scale(goat_attack, (player_width, player_height))
+                goat_attack = pygame.image.load('data/horn.png')
+                goat_attack = pygame.transform.scale(goat_attack, (50, 50))
                 goat_attack_rect = goat_attack.get_rect()
                 goat_attack_rect.center = (goat_rect.x, goat_rect.y)
                 left_attack = False
