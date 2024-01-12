@@ -217,7 +217,7 @@ class Draw:
         # Хп игрока
         get_text(50, "Здоровье", 8, 16, (255, 255, 0), player_health)
         get_text(25, "Древесина", 16, 8, (255, 255, 0), tree_res)
-        get_text(25, "Сено", 16, 10, (255, 255, 0), hay_res)
+        get_text(25, "Камень", 16, 10, (255, 255, 0), hay_res)
 
         if win_blit != 'start_bg':
 
