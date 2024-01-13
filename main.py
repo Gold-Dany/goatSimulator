@@ -318,6 +318,49 @@ class Draw:
                 walk_boss3_count += 1
 
 
+# Загрузка изображения для врага
+enemy_img = pygame.Surface((30, 30))
+enemy_img.fill((255, 0, 0))
+enemy_speed = [1, 2, 3]
+
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.rect = goat_rect
+        self.rect.center = (goat_rect.x, goat_rect.y)
+
+    def update(self):
+        pass
+
+
+# Создание класса для врага
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = enemy_img
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randrange(boss3_rect.x - 100, boss3_rect.x + 200)
+        self.rect.y = boss3_rect.y
+        self.speedy = random.choice(enemy_speed)
+
+    def update(self):
+        self.rect.y += self.speedy
+        if self.rect.top > HEIGHT + 10:
+            self.rect.x = random.randrange(boss3_rect.x - 100, boss3_rect.x + 200)
+            self.rect.y = boss3_rect.y
+            self.speedy = random.choice(enemy_speed)
+
+
+# Создание экземпляра класса Player
+player = Player()
+
+# Создание групп спрайтов
+all_sprites = pygame.sprite.Group()
+enemies = pygame.sprite.Group()
+all_sprites.add(player)
+
+
 def get_text(size, str, x_coord, y_coord, color, count=None):
     if count or count == 0:
         font1 = pygame.font.Font(None, size)
@@ -496,6 +539,17 @@ while running:
         win.blit(background, (0, 0))
         get_text(50, "Босс", 8, 8, (255, 0, 0), boss2_health)
     elif win_blit == 'boss_fight3':
+        if len(enemies) < 5:
+            enemy = Enemy()
+            all_sprites.add(enemy)
+            enemies.add(enemy)
+
+        all_sprites.update()
+
+        hits = pygame.sprite.spritecollide(player, enemies, True)
+        for hit in hits:
+            player_health -= 1
+
         sound2.stop()
         if not sound4_playing or not channel4.get_busy():
             channel4 = sound4.play()
@@ -807,6 +861,7 @@ while running:
     if win_blit == 'boss_fight2':
         win.blit(boss2, boss2_rect)
     if win_blit == 'boss_fight3':
+        enemies.draw(win)
         draw = Draw(boss3_rect.x, boss3_rect.y)
         draw.draw_boss3()
     if win_blit == 'main1_bg':
