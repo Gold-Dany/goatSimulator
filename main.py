@@ -624,6 +624,8 @@ while running:
                 txt_BD_input(7, 16)  # ст.силы
                 txt_BD_input(8, 0)  # сено
                 txt_BD_input(9, 0)  # комки активации
+                txt_BD_input(10, 0)  # древесина
+                txt_BD_input(11, 0)  # камень
                 win_blit = 'main1_bg'
 
         if event.type == pygame.KEYUP:
