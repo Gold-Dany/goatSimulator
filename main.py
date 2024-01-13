@@ -80,6 +80,21 @@ new_game_btn = pygame.transform.scale(new_game_btn, (100, 100))
 new_game_btn_rect = new_game_btn.get_rect()
 new_game_btn_rect.center = (WIDTH / 2, HEIGHT / 1.5)
 
+statement = pygame.image.load('data/точно.png')
+statement = pygame.transform.scale(statement, (500, 300))
+statement_rect = statement.get_rect()
+statement_rect.center = (WIDTH // 2, HEIGHT / 2)
+
+yes_statement_btn = pygame.image.load('data/yes_statement_btn.png')
+yes_statement_btn = pygame.transform.scale(yes_statement_btn, (100, 50))
+yes_statement_btn_rect = yes_statement_btn.get_rect()
+yes_statement_btn_rect.center = (WIDTH / 1.7, HEIGHT // 1.7)
+
+no_statement_btn = pygame.image.load('data/no_statement_btn.png')
+no_statement_btn = pygame.transform.scale(no_statement_btn, (100, 50))
+no_statement_btn_rect = no_statement_btn.get_rect()
+no_statement_btn_rect.center = (WIDTH // 2.5, HEIGHT // 1.7)
+
 # Босс №1
 boss1 = pygame.image.load('data/boss1.png')
 boss1_rect = boss1.get_rect()
@@ -613,6 +628,11 @@ while running:
                 else:
                     no_resours()
             if new_game_btn_rect.collidepoint(event.pos) and win_blit == 'start_bg':
+                # точно новая игра?
+                win.blit(statement, statement_rect)
+                win.blit(yes_statement_btn, yes_statement_btn_rect)
+                win.blit(no_statement_btn, no_statement_btn_rect)
+            if yes_statement_btn_rect.collidepoint(event.pos):
                 sound3.play()
                 txt_BD_input(0, 3)  # скорость
                 txt_BD_input(1, 100)  # здоровье
@@ -624,9 +644,9 @@ while running:
                 txt_BD_input(7, 16)  # ст.силы
                 txt_BD_input(8, 0)  # сено
                 txt_BD_input(9, 0)  # комки активации
-                txt_BD_input(10, 0)  # древесина
-                txt_BD_input(11, 0)  # камень
                 win_blit = 'main1_bg'
+            if no_statement_btn_rect.collidepoint(event.pos) and win_blit:
+                intro_maker()
 
         if event.type == pygame.KEYUP:
             allow_animation = False
