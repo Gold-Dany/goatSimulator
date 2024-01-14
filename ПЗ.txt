@@ -18,3 +18,13 @@ class Draw - рисует объекты, принимая x и y
   def draw_characteristic_btn
   def draw_charact_menu - рисует меню прокачки характеристик
   def draw_player - рисует анимацию передвижения козла
+  def draw_tree 
+  def draw_boss3
+  def draw_black_window
+  def draw_anvil
+
+class Player(pygame.sprite.Sprite)
+  def update
+
+class Enemy(pygame.sprite.Sprite):
+  def update
