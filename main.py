@@ -55,10 +55,10 @@ characteristic_btn = pygame.transform.scale(characteristic_btn, (100, 100))
 characteristic_btn_rect = characteristic_btn.get_rect()
 characteristic_btn_rect.center = (WIDTH / 1.036, HEIGHT // 20)
 
-charact_esc_btn = pygame.image.load('data/characteristic_btn.png')
+charact_esc_btn = pygame.image.load('data/exs_characteristic_btn.png')
 charact_esc_btn = pygame.transform.scale(charact_esc_btn, (50, 50))
 charact_esc_btn_rect = charact_esc_btn.get_rect()
-charact_esc_btn_rect.center = (WIDTH / 1.65, HEIGHT // 3)
+charact_esc_btn_rect.center = (WIDTH / 1.5, HEIGHT // 5)
 
 speed_btn = pygame.image.load('data/characteristic_btn.png')
 speed_btn = pygame.transform.scale(speed_btn, (50, 50))
