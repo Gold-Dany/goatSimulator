@@ -2,7 +2,7 @@ import pygame
 import random
 
 pygame.init()
-WIDTH, HEIGHT = 1300, 900
+WIDTH, HEIGHT = 1100, 700
 
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Goat Simulator")
