@@ -46,9 +46,9 @@ charact_menu_rect.center = (WIDTH // 2, HEIGHT // 2)
 
 # Кнопки
 play_btn = pygame.image.load('data/play_btn.png')
-play_btn = pygame.transform.scale(play_btn, (100, 100))
+play_btn = pygame.transform.scale(play_btn, (400, 160))
 play_btn_rect = play_btn.get_rect()
-play_btn_rect.center = (WIDTH // 2, HEIGHT // 2)
+play_btn_rect.center = (WIDTH // 1.4, HEIGHT // 2)
 
 characteristic_btn = pygame.image.load('data/characteristic_btn.png')
 characteristic_btn = pygame.transform.scale(characteristic_btn, (100, 100))
@@ -76,9 +76,9 @@ strength_btn_rect = strength_btn.get_rect()
 strength_btn_rect.center = (WIDTH / 1.63, HEIGHT // 2)
 
 new_game_btn = pygame.image.load('data/new_game_btn.png')
-new_game_btn = pygame.transform.scale(new_game_btn, (100, 100))
+new_game_btn = pygame.transform.scale(new_game_btn, (240, 160))
 new_game_btn_rect = new_game_btn.get_rect()
-new_game_btn_rect.center = (WIDTH / 2, HEIGHT / 1.5)
+new_game_btn_rect.center = (WIDTH / 1.41, HEIGHT / 1.3)
 
 statement = pygame.image.load('data/точно.png')
 statement = pygame.transform.scale(statement, (500, 300))
