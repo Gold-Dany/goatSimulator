@@ -130,7 +130,7 @@ anvil = pygame.transform.scale(anvil, (100, 100))
 black_window = pygame.image.load('data/black.jpg')
 black_window = pygame.transform.scale(black_window, (50, 50))
 
-mill_rect = mill.get_rect(topleft=(WIDTH // 10, HEIGHT // 10))
+mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
 barn_rect = barn.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
 anvil_x, anvil_y = 1.2, 3.1
 anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
@@ -458,13 +458,13 @@ def check_interaction():
     global black_window, black_window_rect, allow_boss_fight3
     # Область взаимодействия с мельницей
     mill = pygame.transform.scale(mill, (250, 350))
-    mill_rect = mill.get_rect(topleft=(WIDTH // 12, HEIGHT // 10))
+    mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
     if goat_rect.colliderect(mill_rect):
         allow_boss_fight1 = True
     else:
         allow_boss_fight1 = False
     mill = pygame.transform.scale(mill, (200, 300))
-    mill_rect = mill.get_rect(topleft=(WIDTH // 10, HEIGHT // 10))
+    mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
     # Область взаимодействия с амбаром
     barn = pygame.transform.scale(barn, (350, 350))
     barn_rect = barn.get_rect(topleft=(WIDTH / 2.1, HEIGHT // 10))
