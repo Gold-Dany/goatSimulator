@@ -53,7 +53,7 @@ play_btn_rect.center = (WIDTH // 1.4, HEIGHT // 2)
 characteristic_btn = pygame.image.load('data/characteristic_btn.png')
 characteristic_btn = pygame.transform.scale(characteristic_btn, (100, 100))
 characteristic_btn_rect = characteristic_btn.get_rect()
-characteristic_btn_rect.center = (WIDTH / 1.036, HEIGHT // 20)
+characteristic_btn_rect.center = (WIDTH - 50, HEIGHT // 14)
 
 charact_esc_btn = pygame.image.load('data/exs_characteristic_btn.png')
 charact_esc_btn = pygame.transform.scale(charact_esc_btn, (50, 50))
