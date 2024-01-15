@@ -44,7 +44,27 @@ charact_menu = pygame.transform.scale(charact_menu, (750, 750))
 charact_menu_rect = charact_menu.get_rect()
 charact_menu_rect.center = (WIDTH // 2, HEIGHT // 2)
 
+game_rules = pygame.image.load('data/charact_menu.png')
+game_rules = pygame.transform.scale(game_rules, (600, 600))
+game_rules_rect = game_rules.get_rect()
+game_rules_rect.center = (WIDTH // 2, HEIGHT // 2)
+
+statement = pygame.image.load('data/точно.png')
+statement = pygame.transform.scale(statement, (500, 300))
+statement_rect = statement.get_rect()
+statement_rect.center = (WIDTH // 2, HEIGHT / 2)
+
 # Кнопки
+rule_exs_btn = pygame.image.load('data/exs_characteristic_btn.png')
+rule_exs_btn = pygame.transform.scale(rule_exs_btn, (50, 50))
+rule_exs_btn_rect = rule_exs_btn.get_rect()
+rule_exs_btn_rect.center = (WIDTH // 1.5, HEIGHT // 5)
+
+question_btn = pygame.image.load('data/question.png')
+question_btn = pygame.transform.scale(question_btn, (50, 50))
+question_btn_rect = question_btn.get_rect()
+question_btn_rect.center = (WIDTH // 3, HEIGHT // 4)
+
 play_btn = pygame.image.load('data/play_btn.png')
 play_btn = pygame.transform.scale(play_btn, (400, 160))
 play_btn_rect = play_btn.get_rect()
@@ -84,11 +104,6 @@ new_game_btn = pygame.image.load('data/new_game_btn.png')
 new_game_btn = pygame.transform.scale(new_game_btn, (240, 160))
 new_game_btn_rect = new_game_btn.get_rect()
 new_game_btn_rect.center = (WIDTH / 1.41, HEIGHT / 1.3)
-
-statement = pygame.image.load('data/точно.png')
-statement = pygame.transform.scale(statement, (500, 300))
-statement_rect = statement.get_rect()
-statement_rect.center = (WIDTH // 2, HEIGHT / 2)
 
 yes_statement_btn = pygame.image.load('data/yes_statement_btn.png')
 yes_statement_btn = pygame.transform.scale(yes_statement_btn, (100, 50))
@@ -290,6 +305,10 @@ class Draw:
         get_text(25, "Комки", 2.8, 2.3, (0, 0, 0), cost_speed)
         get_text(25, "Комки", 2.08, 2.3, (0, 0, 0), cost_speed_attack)
         get_text(25, "Комки", 1.63, 2.3, (0, 0, 0), cost_strength)
+
+    def draw_game_rule(self):
+        win.blit(game_rules, (game_rules_rect.x, game_rules_rect.y))
+        win.blit(rule_exs_btn, (rule_exs_btn_rect.x, rule_exs_btn_rect.y))
 
     # Отрисовка персонажа и его интерфейса
     def draw_player(self):
@@ -596,6 +615,10 @@ while running:
                 sound3.play()
             if exs_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
                 intro_maker()
+            if question_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
+                win_blit = 'game_rules_bg'
+            if rule_exs_btn_rect.collidepoint(event.pos) and win_blit == 'game_rules_bg':
+                win_blit = 'characteristic_bg'
             if speed_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
                 sound3.play()
                 if main_res >= cost_speed:
@@ -912,6 +935,9 @@ while running:
     if win_blit == 'characteristic_bg':
         draw = Draw(charact_menu_rect.x, charact_menu_rect.y)
         draw.draw_charact_menu()
+    if win_blit == 'game_rules_bg':
+        draw = Draw(game_rules_rect.x, game_rules_rect.y)
+        draw.draw_game_rule()
 
     # Отрисовка текста взаимодействия с предметом
     if ((allow_boss_fight1 is True) or (allow_boss_fight2 is True)) and (win_blit == 'main1_bg'):
