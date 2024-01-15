@@ -60,6 +60,11 @@ charact_esc_btn = pygame.transform.scale(charact_esc_btn, (50, 50))
 charact_esc_btn_rect = charact_esc_btn.get_rect()
 charact_esc_btn_rect.center = (WIDTH / 1.5, HEIGHT // 5)
 
+exs_btn = pygame.image.load('data/characteristic_btn.png')
+exs_btn = pygame.transform.scale(exs_btn, (100, 50))
+exs_btn_rect = exs_btn.get_rect()
+exs_btn_rect.center = (WIDTH // 2, HEIGHT // 4)
+
 speed_btn = pygame.image.load('data/characteristic_btn.png')
 speed_btn = pygame.transform.scale(speed_btn, (50, 50))
 speed_btn_rect = speed_btn.get_rect()
@@ -267,6 +272,7 @@ class Draw:
         win.blit(speed_btn, (speed_btn_rect.x, speed_btn_rect.y))
         win.blit(attack_speed_btn, (attack_speed_btn_rect.x, attack_speed_btn_rect.y))
         win.blit(strength_btn, (strength_btn_rect.x, strength_btn_rect.y))
+        win.blit(exs_btn, (exs_btn_rect.x, exs_btn_rect.y))
         # Ресурсы игрока
         get_text(25, "Пшено", 2.5, 3, (0, 0, 0), millet)
         get_text(25, "Сено", 2.5, 2.8, (0, 0, 0), hay)
@@ -588,6 +594,8 @@ while running:
             if charact_esc_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
                 win_blit = 'main1_bg'
                 sound3.play()
+            if exs_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
+                intro_maker()
             if speed_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
                 sound3.play()
                 if main_res >= cost_speed:
