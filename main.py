@@ -40,7 +40,7 @@ background = pygame.image.load('data/bg.jpg')
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 charact_menu = pygame.image.load('data/charact_menu.png')
-charact_menu = pygame.transform.scale(charact_menu, (750, 750))
+charact_menu = pygame.transform.scale(charact_menu, (500, 500))
 charact_menu_rect = charact_menu.get_rect()
 charact_menu_rect.center = (WIDTH // 2, HEIGHT // 2)
 
@@ -288,6 +288,7 @@ class Draw:
         win.blit(attack_speed_btn, (attack_speed_btn_rect.x, attack_speed_btn_rect.y))
         win.blit(strength_btn, (strength_btn_rect.x, strength_btn_rect.y))
         win.blit(exs_btn, (exs_btn_rect.x, exs_btn_rect.y))
+        win.blit(question_btn, (question_btn_rect.x, question_btn_rect.y))
         # Ресурсы игрока
         get_text(25, "Пшено", 2.5, 3, (0, 0, 0), millet)
         get_text(25, "Сено", 2.5, 2.8, (0, 0, 0), hay)
