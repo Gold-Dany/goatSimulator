@@ -40,7 +40,7 @@ background = pygame.image.load('data/bg.jpg')
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 charact_menu = pygame.image.load('data/charact_menu.png')
-charact_menu = pygame.transform.scale(charact_menu, (500, 500))
+charact_menu = pygame.transform.scale(charact_menu, (600, 600))
 charact_menu_rect = charact_menu.get_rect()
 charact_menu_rect.center = (WIDTH // 2, HEIGHT // 2)
 
@@ -49,18 +49,14 @@ game_rules = pygame.transform.scale(game_rules, (600, 600))
 game_rules_rect = game_rules.get_rect()
 game_rules_rect.center = (WIDTH // 2, HEIGHT // 2)
 
-statement = pygame.image.load('data/точно.png')
-statement = pygame.transform.scale(statement, (500, 300))
-statement_rect = statement.get_rect()
-statement_rect.center = (WIDTH // 2, HEIGHT / 2)
-
 # Кнопки
+
 rule_exs_btn = pygame.image.load('data/exs_characteristic_btn.png')
 rule_exs_btn = pygame.transform.scale(rule_exs_btn, (50, 50))
 rule_exs_btn_rect = rule_exs_btn.get_rect()
 rule_exs_btn_rect.center = (WIDTH // 1.5, HEIGHT // 5)
 
-question_btn = pygame.image.load('data/question.png')
+question_btn = pygame.image.load('data/charact_menu.png')
 question_btn = pygame.transform.scale(question_btn, (50, 50))
 question_btn_rect = question_btn.get_rect()
 question_btn_rect.center = (WIDTH // 3, HEIGHT // 4)
@@ -73,17 +69,12 @@ play_btn_rect.center = (WIDTH // 1.4, HEIGHT // 2)
 characteristic_btn = pygame.image.load('data/characteristic_btn.png')
 characteristic_btn = pygame.transform.scale(characteristic_btn, (100, 100))
 characteristic_btn_rect = characteristic_btn.get_rect()
-characteristic_btn_rect.center = (WIDTH - 50, HEIGHT // 14)
+characteristic_btn_rect.center = (WIDTH / 1.05, HEIGHT // 10)
 
 charact_esc_btn = pygame.image.load('data/exs_characteristic_btn.png')
 charact_esc_btn = pygame.transform.scale(charact_esc_btn, (50, 50))
 charact_esc_btn_rect = charact_esc_btn.get_rect()
 charact_esc_btn_rect.center = (WIDTH / 1.5, HEIGHT // 5)
-
-exs_btn = pygame.image.load('data/characteristic_btn.png')
-exs_btn = pygame.transform.scale(exs_btn, (100, 50))
-exs_btn_rect = exs_btn.get_rect()
-exs_btn_rect.center = (WIDTH // 2, HEIGHT // 4)
 
 speed_btn = pygame.image.load('data/characteristic_btn.png')
 speed_btn = pygame.transform.scale(speed_btn, (50, 50))
@@ -104,6 +95,16 @@ new_game_btn = pygame.image.load('data/new_game_btn.png')
 new_game_btn = pygame.transform.scale(new_game_btn, (240, 160))
 new_game_btn_rect = new_game_btn.get_rect()
 new_game_btn_rect.center = (WIDTH / 1.41, HEIGHT / 1.3)
+
+exs_btn = pygame.image.load('data/characteristic_btn.png')
+exs_btn = pygame.transform.scale(exs_btn, (100, 50))
+exs_btn_rect = exs_btn.get_rect()
+exs_btn_rect.center = (WIDTH // 2, HEIGHT // 4)
+
+statement = pygame.image.load('data/точно.png')
+statement = pygame.transform.scale(statement, (500, 300))
+statement_rect = statement.get_rect()
+statement_rect.center = (WIDTH // 2, HEIGHT / 2)
 
 yes_statement_btn = pygame.image.load('data/yes_statement_btn.png')
 yes_statement_btn = pygame.transform.scale(yes_statement_btn, (100, 50))
@@ -132,7 +133,7 @@ boss3 = pygame.image.load('data/boss3_1.png')
 boss3 = pygame.transform.scale(boss3, (150, 150))
 boss3_rect = boss3.get_rect()
 boss3_rect.center = (WIDTH // 2, HEIGHT // 2)
-boss3_health = 1000
+boss3_health = 5000
 boss3_2 = pygame.image.load('data/boss3_2.png')
 boss3_2 = pygame.transform.scale(boss3_2, (150, 150))
 
@@ -152,9 +153,9 @@ black_window = pygame.transform.scale(black_window, (50, 50))
 
 mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
 barn_rect = barn.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
-anvil_x, anvil_y = 1.2, 3.1
+anvil_x, anvil_y = 1.135, 2.7
 anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
-black_window_x, black_window_y = WIDTH + 1, 1.058
+black_window_x, black_window_y = 1.04, 1.058
 black_window_rect = anvil.get_rect(topleft=(WIDTH // black_window_x, HEIGHT // black_window_y))
 
 tree = pygame.image.load('data/tree.png')
@@ -279,6 +280,14 @@ class Draw:
     def draw_characteristic_btn(self):
         win.blit(characteristic_btn, (self.x, self.y))
 
+    def draw_game_rule(self):
+        win.blit(game_rules, (game_rules_rect.x, game_rules_rect.y))
+        win.blit(rule_exs_btn, (rule_exs_btn_rect.x, rule_exs_btn_rect.y))
+        get_text(35, "Помощь:", 2.6, 6, (0, 0, 0))
+        get_text(25, "LEFT SHIFT - ускорение", 2.6, 4, (0, 0, 0))
+        get_text(25, "Чтобы добывать ресурсы, бодайте их с разбегу", 2.1, 3, (0, 0, 0))
+        get_text(25, "Передвижение на WASD", 2.6, 2.5, (0, 0, 0))
+
     def draw_charact_menu(self):
         txt_BD_loading()
 
@@ -307,18 +316,14 @@ class Draw:
         get_text(25, "Комки", 2.08, 2.3, (0, 0, 0), cost_speed_attack)
         get_text(25, "Комки", 1.63, 2.3, (0, 0, 0), cost_strength)
 
-    def draw_game_rule(self):
-        win.blit(game_rules, (game_rules_rect.x, game_rules_rect.y))
-        win.blit(rule_exs_btn, (rule_exs_btn_rect.x, rule_exs_btn_rect.y))
-
     # Отрисовка персонажа и его интерфейса
     def draw_player(self):
         global walk_count, allow_animation, win_blit
 
         # Хп игрока
-        get_text(50, "Здоровье", 8, 16, (255, 255, 0), player_health)
+        get_text(40, "Здоровье", 8, 16, (255, 255, 0), player_health)
         if win_blit == 'main1_bg':
-            get_text(50, "Комки активации", 2.3, 16, (255, 255, 0), main_res)
+            get_text(40, "Комки активации", 2.6, 16, (255, 255, 0), main_res)
 
         if win_blit != 'start_bg':
 
@@ -381,15 +386,15 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = enemy_img
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(boss3_rect.x - 100, boss3_rect.x + 200)
-        self.rect.y = boss3_rect.y
+        self.rect.x = random.randrange(-WIDTH, WIDTH)
+        self.rect.y = -100
         self.speedy = random.choice(enemy_speed)
 
     def update(self):
         self.rect.y += self.speedy
         if self.rect.top > HEIGHT + 10:
-            self.rect.x = random.randrange(boss3_rect.x - 100, boss3_rect.x + 200)
-            self.rect.y = boss3_rect.y
+            self.rect.x = random.randrange(-WIDTH, WIDTH)
+            self.rect.y = -100
             self.speedy = random.choice(enemy_speed)
 
 
@@ -418,6 +423,10 @@ def get_text(size, str, x_coord, y_coord, color, count=None):
 def intro_maker():
     global win_blit, background, player_health, goat_attack, left_attack, right_attack, goat_attack_rect
 
+    sound1.stop()
+    sound2.stop()
+    sound4.stop()
+
     win_blit = 'start_bg'
     image = pygame.image.load('data/goat_bg.jpg')
     image = pygame.transform.scale(image, (WIDTH, HEIGHT))
@@ -440,7 +449,7 @@ intro_maker()
 
 def boss_fight1():
     global win_blit, background, move_boss_event, move_boss_event_check, boss1, boss1_health, boss1_rect
-    boss1_health = 100
+    boss1_health = 200
     move_boss_event = pygame.USEREVENT + 1
     pygame.time.set_timer(move_boss_event, 5000)
     boss1 = pygame.image.load('data/boss1.png')
@@ -456,7 +465,7 @@ def boss_fight1():
 
 def boss_fight2():
     global win_blit, background, move_boss2_event, move_boss2_event_check, boss2, boss2_health, boss2_rect
-    boss2_health = 150
+    boss2_health = 300
     move_boss2_event = pygame.USEREVENT + 1
     pygame.time.set_timer(move_boss2_event, 5000)
     boss2 = pygame.image.load('data/boss2.png')
@@ -471,7 +480,8 @@ def boss_fight2():
 
 
 def boss_fight3():
-    global win_blit, background, allow_boss3_animation
+    global win_blit, background, allow_boss3_animation, boss3_health
+    boss3_health = 5000
     allow_boss3_animation = True
     win_blit = 'boss_fight3'
     background = pygame.image.load('data/black.jpg')
@@ -537,7 +547,7 @@ def check_collision(obj):
 
 def no_resours():
     global no_res_event
-    get_text(50, 'НЕ ХВАТАЕТ СРЕДСТВ', 5, 10, (255, 0, 0))
+    get_text(50, 'НЕ ХВАТАЕТ СРЕДСТВ', 5, 20, (255, 0, 0))
     no_res_event = pygame.USEREVENT + 1
     pygame.time.set_timer(no_res_event, 1500)
 
@@ -580,7 +590,7 @@ while running:
         win.blit(background, (0, 0))
         get_text(50, "Босс", 8, 8, (255, 0, 0), boss2_health)
     elif win_blit == 'boss_fight3':
-        if len(enemies) < 5:
+        if len(enemies) < 50:
             enemy = Enemy()
             all_sprites.add(enemy)
             enemies.add(enemy)
@@ -589,7 +599,7 @@ while running:
 
         hits = pygame.sprite.spritecollide(player, enemies, True)
         for hit in hits:
-            player_health -= 1
+            player_health -= 5
 
         sound2.stop()
         if not sound4_playing or not channel4.get_busy():
@@ -615,10 +625,13 @@ while running:
                 win_blit = 'main1_bg'
                 sound3.play()
             if exs_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
+                sound3.play()
                 intro_maker()
             if question_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
+                sound3.play()
                 win_blit = 'game_rules_bg'
             if rule_exs_btn_rect.collidepoint(event.pos) and win_blit == 'game_rules_bg':
+                sound3.play()
                 win_blit = 'characteristic_bg'
             if speed_btn_rect.collidepoint(event.pos) and win_blit == 'characteristic_bg':
                 sound3.play()
@@ -664,8 +677,8 @@ while running:
                 win.blit(statement, statement_rect)
                 win.blit(yes_statement_btn, yes_statement_btn_rect)
                 win.blit(no_statement_btn, no_statement_btn_rect)
-            if yes_statement_btn_rect.collidepoint(event.pos):
                 sound3.play()
+            if yes_statement_btn_rect.collidepoint(event.pos):
                 txt_BD_input(0, 3)  # скорость
                 txt_BD_input(1, 100)  # здоровье
                 txt_BD_input(2, 0)  # пшено
@@ -676,9 +689,12 @@ while running:
                 txt_BD_input(7, 16)  # ст.силы
                 txt_BD_input(8, 0)  # сено
                 txt_BD_input(9, 0)  # комки активации
+                txt_BD_input(10, 0)  # Древесина
+                txt_BD_input(11, 0)  # Камень
                 win_blit = 'main1_bg'
             if no_statement_btn_rect.collidepoint(event.pos) and win_blit:
                 intro_maker()
+                sound3.play()
 
         if event.type == pygame.KEYUP:
             allow_animation = False
@@ -807,7 +823,7 @@ while running:
             # Шанс на выпадение древесины
             fortune = random.randint(0, 2)
             if fortune == 1:
-                tree_res += 1
+                tree_res += 3
             txt_BD_input(10, tree_res)
         elif goat_rect.colliderect(tree_rect) and goat_speed != player_super_speed:
             check_collision(tree_rect)
@@ -817,7 +833,7 @@ while running:
             # Шанс на выпадение камня
             fortune = random.randint(0, 4)
             if fortune == 1:
-                hay_res += 1
+                hay_res += 2
             txt_BD_input(11, hay_res)
         elif goat_rect.colliderect(hay_rect) and goat_speed != player_super_speed:
             check_collision(hay_rect)
@@ -893,6 +909,19 @@ while running:
         if goat_rect.colliderect(boss3_rect):
             goat_rect.move_ip(-player_speed, 0)
             player_health -= 1
+            # Нанесение боссу №3 урона аттакой
+        if goat_attack_rect.colliderect(boss3_rect):
+            boss3_health -= player_strength
+        if boss3_health <= 0:
+            win.fill((0, 0, 0))
+            font = pygame.font.Font(None, 36)
+            text = font.render("ВЫ ПРОШЛИ ИГРУ", True, (255, 255, 255))
+            text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+            win.blit(text, text_rect)
+            pygame.display.update()
+            # Задержка
+            pygame.time.wait(2000)
+            intro_maker()
 
     # Случай гибели персонажа
     if player_health <= 0:
@@ -907,7 +936,7 @@ while running:
         intro_maker()
 
     # Отрисовка игровых объектов
-    if win_blit != 'start_bg' and win_blit != 'characteristic_bg':
+    if win_blit != 'start_bg' and win_blit != 'characteristic_bg' and win_blit != 'game_rules_bg':
         draw = Draw(goat_rect[0], goat_rect[1])
         draw.draw_player()
     if win_blit == 'boss_fight1':
