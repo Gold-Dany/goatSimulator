@@ -160,7 +160,7 @@ black_window_rect = anvil.get_rect(topleft=(WIDTH // black_window_x, HEIGHT // b
 
 tree = pygame.image.load('data/tree.png')
 tree = pygame.transform.scale(tree, (30, 30))
-tree = pygame.transform.scale(tree, (100, 130))
+tree = pygame.transform.scale(tree, (200, 230))
 tree_rect = tree.get_rect(topleft=(WIDTH // 2.8, HEIGHT // 10))
 
 hay_img = pygame.image.load('data/hay.png')
