@@ -99,7 +99,7 @@ new_game_btn_rect.center = (WIDTH / 1.41, HEIGHT / 1.3)
 exs_btn = pygame.image.load('data/exs_btn.png')
 exs_btn = pygame.transform.scale(exs_btn, (100, 50))
 exs_btn_rect = exs_btn.get_rect()
-exs_btn_rect.center = (WIDTH // 3, HEIGHT // 1.2)
+exs_btn_rect.center = (WIDTH // 2, HEIGHT // 6)
 
 statement = pygame.image.load('data/точно.png')
 statement = pygame.transform.scale(statement, (500, 300))
@@ -139,32 +139,29 @@ boss3_2 = pygame.transform.scale(boss3_2, (150, 150))
 
 # Объекты
 mill = pygame.image.load('data/mill.png')
-mill = pygame.transform.scale(mill, (200, 300))
+mill = pygame.transform.scale(mill, (200, 200))
+mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
 
 barn = pygame.image.load('data/barn.png')
 barn = pygame.transform.scale(barn, (300, 300))
+barn_rect = barn.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
 
 anvil = pygame.image.load('data/anvil.png')
-anvil = pygame.transform.scale(anvil, (40, 40))
 anvil = pygame.transform.scale(anvil, (100, 100))
+anvil_x, anvil_y = 1.135, 2.7
+anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
 
 black_window = pygame.image.load('data/black.jpg')
 black_window = pygame.transform.scale(black_window, (50, 50))
 
-mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
-barn_rect = barn.get_rect(topleft=(WIDTH // 2, HEIGHT // 10))
-anvil_x, anvil_y = 1.135, 2.7
-anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
 black_window_x, black_window_y = 1.04, 1.058
 black_window_rect = anvil.get_rect(topleft=(WIDTH // black_window_x, HEIGHT // black_window_y))
 
 tree = pygame.image.load('data/tree.png')
-tree = pygame.transform.scale(tree, (30, 30))
-tree = pygame.transform.scale(tree, (200, 230))
-tree_rect = tree.get_rect(topleft=(WIDTH // 2.8, HEIGHT // 10))
+tree = pygame.transform.scale(tree, (100, 130))
+tree_rect = tree.get_rect(topleft=(WIDTH // 2.5, HEIGHT // 19))
 
 hay_img = pygame.image.load('data/hay.png')
-hay_img = pygame.transform.scale(hay_img, (30, 30))
 hay_img = pygame.transform.scale(hay_img, (100, 115))
 hay_rect = hay_img.get_rect(topleft=(WIDTH // 1.3, HEIGHT // 1.2))
 
@@ -474,7 +471,7 @@ def boss_fight2():
     boss2_rect.center = (random.randint(0, WIDTH), random.randint(0, HEIGHT))
     move_boss2_event_check = 'small'
     win_blit = 'boss_fight2'
-    background = pygame.image.load('data/bg_boss_fight1.jpg')
+    background = pygame.image.load('data/bg_boss_fight2.jpg')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     win.blit(background, (0, 0))
 
@@ -492,43 +489,47 @@ def boss_fight3():
 def check_interaction():
     global mill, mill_rect, barn, barn_rect, allow_boss_fight1, allow_boss_fight2, anvil, anvil_rect, allow_make_res
     global black_window, black_window_rect, allow_boss_fight3
+
     # Область взаимодействия с мельницей
-    mill = pygame.transform.scale(mill, (250, 350))
-    mill_rect = mill.get_rect(topleft=(0, HEIGHT - 325))
+    mill_rect = pygame.transform.scale(mill, (250, 250))
+    mill_rect = mill_rect.get_rect(topleft=(50, HEIGHT - 300))
     if goat_rect.colliderect(mill_rect):
         allow_boss_fight1 = True
     else:
         allow_boss_fight1 = False
-    mill = pygame.transform.scale(mill, (300, 300))
-    mill_rect = mill.get_rect(topleft=(0, HEIGHT - 400))
+    mill_rect = pygame.transform.scale(mill, (200, 200))
+    mill_rect = mill_rect.get_rect(topleft=(50, HEIGHT - 300))
+
     # Область взаимодействия с амбаром
-    barn = pygame.transform.scale(barn, (350, 350))
-    barn_rect = barn.get_rect(topleft=(WIDTH / 2.1, HEIGHT // 10))
+    barn_rect = pygame.transform.scale(barn, (300, 300))
+    barn_rect = barn_rect.get_rect(topleft=(WIDTH / 2, HEIGHT // 10))
     if goat_rect.colliderect(barn_rect):
         allow_boss_fight2 = True
     else:
         allow_boss_fight2 = False
-    barn = pygame.transform.scale(barn, (400, 400))
-    barn_rect = barn.get_rect(topleft=(WIDTH // 2, 0))
+    barn_rect = pygame.transform.scale(barn, (250, 250))
+    barn_rect = barn_rect.get_rect(topleft=(WIDTH // 1.9, HEIGHT // 10))
+
     # Область взаимодействия с наковальней
-    anvil = pygame.transform.scale(anvil, (200, 200))
-    anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // (anvil_y + 0.2)))
+    anvil_rect = pygame.transform.scale(anvil, (200, 200))
+    anvil_rect = anvil_rect.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // (anvil_y + 0.2)))
     if goat_rect.colliderect(anvil_rect):
         allow_make_res = True
     else:
         allow_make_res = False
-    anvil = pygame.transform.scale(anvil, (100, 100))
-    anvil_rect = anvil.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
+    anvil_rect = pygame.transform.scale(anvil, (100, 100))
+    anvil_rect = anvil_rect.get_rect(topleft=(WIDTH // anvil_x, HEIGHT // anvil_y))
+
     # Область взаимодействия с наковальней
-    black_window = pygame.transform.scale(black_window, (100, 100))
-    black_window_rect = black_window.get_rect(
+    black_window_rect = pygame.transform.scale(black_window, (100, 100))
+    black_window_rect = black_window_rect.get_rect(
         topleft=(WIDTH // black_window_x, HEIGHT // (black_window_y + 0.1)))
     if goat_rect.colliderect(black_window_rect):
         allow_boss_fight3 = True
     else:
         allow_boss_fight3 = False
-    black_window = pygame.transform.scale(black_window, (50, 50))
-    black_window_rect = black_window.get_rect(topleft=(WIDTH // black_window_x, HEIGHT // black_window_y))
+    black_window_rect = pygame.transform.scale(black_window, (50, 50))
+    black_window_rect = black_window_rect.get_rect(topleft=(WIDTH // black_window_x, HEIGHT // black_window_y))
 
 
 def check_collision(obj):
@@ -590,7 +591,7 @@ while running:
         win.blit(background, (0, 0))
         get_text(50, "Босс", 8, 8, (255, 0, 0), boss2_health)
     elif win_blit == 'boss_fight3':
-        if len(enemies) < 50:
+        if len(enemies) < 40:
             enemy = Enemy()
             all_sprites.add(enemy)
             enemies.add(enemy)
